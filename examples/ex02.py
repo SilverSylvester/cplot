@@ -1,7 +1,6 @@
 import wave
 import numpy as np
 import time
-import sys
 
 spf = wave.open('/home/conor/Dropbox/Personal Music/Voice0032.wav', 'r')
 signal = np.fromstring(spf.readframes(-1), 'Int16')
@@ -12,7 +11,7 @@ for index, datum in enumerate(signal):
 
 fs = spf.getframerate()
 Time = np.linspace(0, len(signal) / len(channels) / fs,
-                      num=len(signal) / len(channels))
+                   num=len(signal) / len(channels))
 
 
 wave_points = zip(Time, channels[0][:10000000])

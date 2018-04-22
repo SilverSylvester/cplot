@@ -10,4 +10,3 @@ for i in itertools.count():
     print('chart:', i, y, flush=True)
     y += random.randint(-1, 1)
     time.sleep(0.0001)
-
