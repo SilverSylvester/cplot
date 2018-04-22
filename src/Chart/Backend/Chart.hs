@@ -6,6 +6,7 @@ import           Control.Lens
 import           Control.Monad                          (void)
 import           Data.Default                           (def)
 import           Data.List.NonEmpty                     (nonEmpty)
+import qualified Data.List.NonEmpty                     as NonEmpty
 import           Data.Maybe                             (catMaybes)
 import           Data.Text                              (unpack)
 
@@ -36,18 +37,20 @@ renderChart chart rect =
     renderable :: Chart.Renderable ()
     renderable = render layout
 
+    listOfSubcharts = NonEmpty.toList (chart^.subcharts)
+
     layout =
       case chart^.axisScaling of
         LinearScaling -> MkRenderable
           $ Chart.layout_title  .~ unpack (chart^.title)
-          $ Chart.layout_plots  .~ map makeLinearPlottable (chart^.subcharts)
+          $ Chart.layout_plots  .~ map makeLinearPlottable listOfSubcharts
           $ Chart.layout_x_axis .~ customLinAxis minX maxX
           $ Chart.layout_y_axis .~ customLinAxis minY maxY
           $ def
 
         LogScaling -> MkRenderable
           $ Chart.layout_title .~ unpack (chart^.title)
-          $ Chart.layout_plots .~ map makeLogPlottable (chart^.subcharts)
+          $ Chart.layout_plots .~ map makeLogPlottable listOfSubcharts
           $ Chart.layout_x_axis .~ customLinAxis minX maxX
           $ Chart.layout_y_axis .~ customLogAxis minY maxY
           $ def
@@ -70,9 +73,9 @@ renderChart chart rect =
     customLogAxis _ _ = def
 
     xbounds = catMaybes
-      [ Dataset.xbounds (subchart^.dataset) | subchart <- chart^.subcharts ]
+      [ Dataset.xbounds (subchart^.dataset) | subchart <- listOfSubcharts ]
     ybounds = catMaybes
-      [ Dataset.ybounds (subchart^.dataset) | subchart <- chart^.subcharts ]
+      [ Dataset.ybounds (subchart^.dataset) | subchart <- listOfSubcharts ]
 
     (minX, maxX) = mins xbounds
     (minY, maxY) = mins ybounds

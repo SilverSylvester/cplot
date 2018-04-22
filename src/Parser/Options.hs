@@ -6,6 +6,7 @@ module Parser.Options
 import           Control.Lens
 import           Data.Char                  (GeneralCategory (..))
 import           Data.Default               (def)
+import qualified Data.List.NonEmpty         as NonEmpty
 
 import           Data.Text                  (Text)
 import qualified Data.Text                  as T
@@ -56,7 +57,7 @@ parseSubchart = do
 parseChart :: Parser Chart
 parseChart = do
   chartTitle <- stringLiteral
-  subcharts  <- some parseSubchart
+  subcharts  <- NonEmpty.fromList <$> some parseSubchart
   return $ Chart.title     .~ chartTitle
          $ Chart.subcharts .~ subcharts
          $ def

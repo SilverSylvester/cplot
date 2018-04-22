@@ -6,6 +6,7 @@ module Chart.Types where
 import           Control.Lens
 import           Data.Default
 import           Data.Text                (Text)
+import           Data.List.NonEmpty       (NonEmpty)
 
 import           Buffer                   (Buffer)
 import qualified Buffer.Backend.MinMax    as MMB
@@ -18,7 +19,7 @@ import qualified Dataset.Backend.Line     as Line
 --   later on. This keeps the chart code separate from the rendering.
 data Chart = Chart
   { _title       :: Text
-  , _subcharts   :: [Subchart]
+  , _subcharts   :: NonEmpty Subchart
   , _axisScaling :: AxisScaling
   }
 
@@ -55,13 +56,13 @@ second p        p'        = compare p p'
 instance Default Chart where
   def = Chart
     { _title       = "chart"
-    , _subcharts   = []
+    , _subcharts   = pure def
     , _axisScaling = LinearScaling
     }
 
 instance Default Subchart where
   def = Subchart
-    { _label         = "label"
+    { _label         = "data"
     , _buffer        = MMB.minMaxBufferBy second
     , _dataset       = Line.dataset
     , _style         = LinePlot
