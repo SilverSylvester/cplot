@@ -12,3 +12,5 @@ while True:
     for t in ts:
         print('chart:', x(t), y(t), flush=True)
         time.sleep(0.01)
+
+# python ex05.py | cplot -c 'chart swirly-thing line'

@@ -11,3 +11,5 @@ while True:
         y += random.choice([-1, 1])
 
     time.sleep(0.001)
+
+# python ex04.py | cplot -c 'chart random-walk line'

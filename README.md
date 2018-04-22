@@ -32,6 +32,9 @@ If this produces no output, you may need to flush stdout after each print.
 $ yes | gawk '@load "time"; {sleep(0.2); print "chart:", NR, NR*sqrt(NR); fflush()}' | ./cplot -c "chart data line"
 ```
 
+Take a look at the examples, they all contain information about how they can be fed
+into cplot.
+
 ## License
 
 See the [LICENSE](https://github.com/SilverSylvester/cplot/blob/master/LICENSE).

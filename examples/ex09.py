@@ -12,3 +12,5 @@ while True:
     r1, r2, r3 = roll(6), roll(6), roll(6)
     print('SumOfThreeDice:', r1 + r2 + r3, flush=True)
     time.sleep(0.001)
+
+# python ex09.py | cplot -c 'SumOfThreeDice value histogram'

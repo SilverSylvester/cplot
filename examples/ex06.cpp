@@ -3,6 +3,10 @@
 #include <cmath>
 #include <chrono>
 
+/**
+ * ./ex06 | cplot -c 'chart sin-cos line'
+ * This will be reasonably taxing to run.
+ */
 int main(int argc, char *argv[]) {
   // Ensure SIGPIPE is ignored
   (void) std::signal(SIGPIPE, SIG_IGN);
