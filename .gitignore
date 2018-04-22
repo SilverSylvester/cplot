@@ -16,3 +16,4 @@ _minted-*
 *.hp
 *.ps
 cplot.yaml
+.vscode
