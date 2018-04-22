@@ -47,7 +47,13 @@ parseOptions = AppOptions . toChartMap <$> chartsParser
       some $ option chartReader $
         long "chart"
      <> short 'c'
-     <> help "[chart name] [subchart label] [line|scatter] [subchart label] ..."
+     <> help (mconcat [ "Constructs a chart from a string containing the name "
+                      , "of the chart, the label for the data in the plot, and "
+                      , "the kind of data (one of 'line', 'scatter', or "
+                      , "'histogram'). For example: `cplot -c 'WebData Clickstream "
+                      , "line'` will create a chart called 'WebData' with a line plot "
+                      , "called 'Clickstream'"
+                      ])
 
     toChartMap cs = Map.fromList [ (chart^.title, chart) | chart <- cs ]
 
